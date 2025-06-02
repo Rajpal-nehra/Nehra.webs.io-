@@ -1,5 +1,3 @@
-# Webs-by-Nehra-
-Nehra Webs – Crafting Digital Experiences That Inspire
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,19 +139,19 @@ Nehra Webs – Crafting Digital Experiences That Inspire
       Your browser does not support the video tag.
     </video>
 
-    <img src="logo.png" alt="Nehra Webs Logo" class="logo" />
+    <img src="new_logo.png" alt="Nehra Webs Logo" class="logo" />
     <div class="namaste">🙏 Namaste</div>
     <div class="question">Do you want to get a website built?</div>
     <button class="yes-button" onclick="scrollToContact()">Yes</button>
   </section>
 
   <section class="section" id="contact">
-    <h2>Let’s Get You Online!</h2>
+    <h2>Let's Get You Online!</h2>
     <p>Click below to connect with us on your favorite platform:</p>
 
     <div class="contact-buttons">
       <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
-      <a href="https://wa.me/919999999999?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
+      <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
     </div>
   </section>
 
