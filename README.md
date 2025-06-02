@@ -13,45 +13,45 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f8f5f2;
-      color: #333;
+      background: #f4f0ec;
+      color: #222;
+      line-height: 1.6;
     }
 
     header {
-      background-color: #fff;
+      text-align: center;
       padding: 40px 20px;
+      background: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .logo {
-      height: 100px;
-      width: auto;
-      border-radius: 8px;
+      height: 120px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    section {
-      padding: 60px 20px;
-      text-align: center;
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      margin-top: 20px;
     }
 
     .contact-buttons {
       display: flex;
       justify-content: center;
       gap: 20px;
+      margin: 40px 0;
       flex-wrap: wrap;
     }
 
     .contact-buttons a {
-      padding: 14px 30px;
-      border-radius: 30px;
+      padding: 14px 32px;
+      border-radius: 32px;
       font-weight: 600;
-      font-size: 16px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .contact-buttons a:first-child {
@@ -65,16 +65,37 @@
     }
 
     .contact-buttons a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      transform: scale(1.05);
+    }
+
+    .posts-section {
+      padding: 40px 20px;
+      background: #fff;
+      border-radius: 16px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .posts-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .post {
+      background: #fefefe;
+      padding: 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid #6e3b2e;
+      border-radius: 8px;
     }
 
     footer {
-      background-color: #1f1f1f;
-      color: #ccc;
       text-align: center;
-      padding: 40px 20px;
-      font-size: 15px;
+      background-color: #1a1a1a;
+      color: #ccc;
+      padding: 30px 20px;
       font-family: 'Playfair Display', serif;
     }
 
@@ -85,22 +106,29 @@
 </head>
 <body>
 
-<header>
-  <img src="nehra-logo.jpg" alt="Nehra Webs Logo" class="logo">
-</header>
+  <header>
+    <!-- Make sure this image exists in your GitHub repo -->
+    <img src="nehra-logo.png" alt="Nehra Webs Logo" class="logo">
+    <h1>Nehra Webs</h1>
+  </header>
 
-<section id="contact">
-  <h2 style="font-family:'Playfair Display', serif; font-size: 32px; margin-bottom: 30px;">Connect with Me</h2>
   <div class="contact-buttons">
     <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
     <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
   </div>
-</section>
 
-<footer>
-  &copy; 2025 <strong>Nehra Webs</strong>. Crafted with passion and coffee ☕<br>
-  Owner: <strong>Rajpal Nehra</strong>
-</footer>
+  <section class="posts-section">
+    <h2>My Posts</h2>
+    <!-- Add your posts/updates here -->
+    <div class="post">🎧 New ringtone released this week — check my Instagram!</div>
+    <div class="post">🚀 Working on a new Android app, launching soon...</div>
+    <div class="post">🔥 Realme UI 6.0 gaming review coming next Friday!</div>
+  </section>
+
+  <footer>
+    &copy; 2025 <strong>Nehra Webs</strong>. Crafted with passion and coffee ☕<br>
+    Owner: <strong>Rajpal Nehra</strong>
+  </footer>
 
 </body>
 </html>
