@@ -1,139 +1,163 @@
-
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nehra Webs</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f6f4ef;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #2d2d2d;
     }
     header {
-      background: #fff;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      padding: 1rem;
       text-align: center;
-      padding: 40px 20px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+      font-size: 2rem;
+      font-weight: bold;
     }
-    .logo {
-      width: 120px;
+    .logo-container {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .logo-container img {
+      max-width: 200px;
       height: auto;
-      margin-bottom: 10px;
+      border-radius: 12px;
     }
-    h1 {
-      font-size: 2.4rem;
-      color: #222;
-      margin: 10px 0;
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
     }
     .contact-buttons a {
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
       text-decoration: none;
       color: white;
-      padding: 12px 28px;
-      border-radius: 30px;
-      margin: 10px;
-      display: inline-block;
       font-weight: bold;
-      transition: 0.3s ease;
+      transition: 0.3s;
     }
-    .contact-buttons .instagram {
-      background: linear-gradient(to right, #f00073, #ff8800);
+    .contact-buttons a:first-child {
+      background: linear-gradient(to right, #f953c6, #b91d73);
     }
-    .contact-buttons .whatsapp {
-      background: #25d366;
+    .contact-buttons a:last-child {
+      background: #25D366;
     }
     .contact-buttons a:hover {
-      opacity: 0.85;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
-    .posts-section {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    .posts {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .posts-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    .post {
-      margin-bottom: 16px;
-      padding: 12px;
-      background: #f7f7f7;
-      border-left: 4px solid #222;
-      border-radius: 6px;
-    }
-    footer {
-      background: #1c1c1c;
-      color: #ccc;
+    .posts h2 {
       text-align: center;
-      padding: 30px 10px;
-      margin-top: 40px;
-      font-size: 14px;
+      margin-bottom: 1.5rem;
     }
-    .admin-panel {
-      text-align: center;
-      margin-top: 40px;
+    .new-post {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    .admin-panel input,
-    .admin-panel textarea {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
+    .new-post input[type="text"],
+    .new-post textarea,
+    .new-post select {
+      width: 100%;
+      padding: 0.75rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
     }
-    .admin-panel button {
-      padding: 10px 20px;
-      background-color: #222;
+    .new-post button {
+      padding: 0.75rem;
+      background: #6a11cb;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .new-post button:hover {
+      background: #2575fc;
+    }
+    .post-list {
+      margin-top: 2rem;
+    }
+    .post {
+      background: #f9f9f9;
+      border-left: 4px solid #6a11cb;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1a1a1a;
+      color: white;
     }
   </style>
 </head>
 <body>
+  <header>Nehra.webs.io</header>  <div class="logo-container">
+    <img id="site-logo" src="logo.png" alt="Nehra Webs Logo" />
+  </div>  <div class="contact-buttons">
+    <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
+    <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
+  </div>  <section class="posts">
+    <h2>New Post</h2>
+    <div class="new-post">
+      <input type="text" id="post-title" placeholder="Type a title" />
+      <textarea id="post-content" rows="5" placeholder="Share your thoughts with pictures"></textarea>
+      <select id="post-category">
+        <option value="">Select Category</option>
+        <option value="Update">Update</option>
+        <option value="Tech">Tech</option>
+        <option value="Music">Music</option>
+      </select>
+      <button onclick="addPost()">Post</button>
+    </div><div class="post-list" id="posts"></div>
 
-<header>
-  <img src="logo.png" alt="Nehra Webs Logo" class="logo" />
-  <h1>Nehra Webs</h1>
-  <div class="contact-buttons">
-    <a href="https://www.instagram.com/rajpalnehra001" target="_blank" class="instagram">Instagram</a>
-    <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank" class="whatsapp">WhatsApp</a>
-  </div>
-</header>
+  </section>  <footer>
+    &copy; 2025 <b>Nehra Webs</b>. Made with ♥ by Rajpal Nehra
+  </footer>  <script>
+    const postsContainer = document.getElementById('posts');
 
-<section class="posts-section">
-  <h2>My Posts</h2>
-  <div id="posts"></div>
-</section>
+    function loadPosts() {
+      const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
+      postsContainer.innerHTML = posts.map(p => `
+        <div class="post">
+          <strong>${p.title}</strong>
+          <p>${p.content}</p>
+          <small><i>${p.category}</i></small>
+        </div>
+      `).join("");
+    }
 
-<div class="admin-panel">
-  <h3>Post Something (Only for Rajpal)</h3>
-  <textarea id="newPost" placeholder="Write your post here..."></textarea><br />
-  <button onclick="addPost()">Add Post</button>
-</div>
+    function addPost() {
+      const title = document.getElementById("post-title").value.trim();
+      const content = document.getElementById("post-content").value.trim();
+      const category = document.getElementById("post-category").value;
+      if (title && content) {
+        const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
+        posts.unshift({ title, content, category });
+        localStorage.setItem("nehra_posts", JSON.stringify(posts));
+        document.getElementById("post-title").value = "";
+        document.getElementById("post-content").value = "";
+        loadPosts();
+      }
+    }
 
-<footer>
-  &copy; 2025 <strong>Nehra Webs</strong>. Crafted with passion and coffee ☕ <br />
-  Owner: <strong>Rajpal Nehra</strong>
-</footer>
-
-<script>
-  function addPost() {
-    const postText = document.getElementById("newPost").value;
-    if (postText.trim() === "") return;
-    const postDiv = document.createElement("div");
-    postDiv.className = "post";
-    postDiv.innerText = postText;
-    document.getElementById("posts").prepend(postDiv);
-    document.getElementById("newPost").value = "";
-  }
-</script>
-
-</body>
+    window.onload = loadPosts;
+  </script></body>
 </html>
