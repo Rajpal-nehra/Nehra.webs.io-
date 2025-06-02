@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,10 +68,12 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      margin-bottom: 1rem;
     }
     .new-post input[type="text"],
     .new-post textarea,
-    .new-post select {
+    .new-post select,
+    .new-post input[type="file"] {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ccc;
@@ -99,6 +102,19 @@
       padding: 1rem;
       border-radius: 8px;
       margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .post img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+    #preview-image {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
     }
     footer {
       text-align: center;
@@ -106,15 +122,25 @@
       background: #1a1a1a;
       color: white;
     }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>Nehra.webs.io</header>  <div class="logo-container">
+  <header>Nehra.webs.io</header>
+  <div class="logo-container">
     <img id="site-logo" src="logo.png" alt="Nehra Webs Logo" />
-  </div>  <div class="contact-buttons">
+  </div>
+
+  <div class="contact-buttons">
     <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
     <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
-  </div>  <section class="posts">
+  </div>
+
+  <section class="posts" id="posts-section" style="display:none;">
     <h2>New Post</h2>
     <div class="new-post">
       <input type="text" id="post-title" placeholder="Type a title" />
@@ -125,21 +151,59 @@
         <option value="Tech">Tech</option>
         <option value="Music">Music</option>
       </select>
+      <input type="file" id="post-image" accept="image/*" />
+      <img id="preview-image" alt="Image preview" />
       <button onclick="addPost()">Post</button>
-    </div><div class="post-list" id="posts"></div>
+    </div>
+    <div class="post-list" id="posts"></div>
+  </section>
 
-  </section>  <footer>
+  <footer>
     &copy; 2025 <b>Nehra Webs</b>. Made with ♥ by Rajpal Nehra
-  </footer>  <script>
+  </footer>
+
+  <script>
+    // Admin login prompt on page load
+    function checkAdminLogin() {
+      const pwd = prompt("Enter admin password:");
+      if (pwd === "admin123") {
+        document.getElementById('posts-section').style.display = "block";
+        loadPosts();
+      } else {
+        alert("Wrong password! You cannot access post section.");
+        // You can redirect or hide posts section permanently here if needed
+      }
+    }
+
     const postsContainer = document.getElementById('posts');
+    const imageInput = document.getElementById('post-image');
+    const previewImage = document.getElementById('preview-image');
+    let imageDataUrl = "";
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          imageDataUrl = e.target.result;
+          previewImage.src = imageDataUrl;
+          previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imageDataUrl = "";
+        previewImage.style.display = 'none';
+      }
+    });
 
     function loadPosts() {
       const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
       postsContainer.innerHTML = posts.map(p => `
         <div class="post">
-          <strong>${p.title}</strong>
-          <p>${p.content}</p>
-          <small><i>${p.category}</i></small>
+          <strong>${escapeHtml(p.title)}</strong>
+          <p>${escapeHtml(p.content)}</p>
+          ${p.image ? `<img src="${p.image}" alt="Post image" />` : ""}
+          <small><i>${escapeHtml(p.category)}</i></small>
         </div>
       `).join("");
     }
@@ -148,16 +212,35 @@
       const title = document.getElementById("post-title").value.trim();
       const content = document.getElementById("post-content").value.trim();
       const category = document.getElementById("post-category").value;
-      if (title && content) {
-        const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
-        posts.unshift({ title, content, category });
-        localStorage.setItem("nehra_posts", JSON.stringify(posts));
-        document.getElementById("post-title").value = "";
-        document.getElementById("post-content").value = "";
-        loadPosts();
+      if (!title || !content) {
+        alert("Please enter both title and content.");
+        return;
       }
+      const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
+      posts.unshift({ title, content, category, image: imageDataUrl });
+      localStorage.setItem("nehra_posts", JSON.stringify(posts));
+      document.getElementById("post-title").value = "";
+      document.getElementById("post-content").value = "";
+      document.getElementById("post-category").value = "";
+      imageInput.value = "";
+      previewImage.style.display = "none";
+      imageDataUrl = "";
+      loadPosts();
     }
 
-    window.onload = loadPosts;
-  </script></body>
+    // Simple HTML escape to prevent XSS
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    window.onload = () => {
+      checkAdminLogin();
+    }
+  </script>
+</body>
 </html>
