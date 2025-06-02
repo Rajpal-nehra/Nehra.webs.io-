@@ -174,20 +174,22 @@
 
   <button id="logout-btn" onclick="logout()">Logout</button>
 
-  <section class="posts" id="posts-section" style="display:none;">
-    <h2>New Post</h2>
-    <div class="new-post">
-      <input type="text" id="post-title" placeholder="Type a title" />
-      <textarea id="post-content" rows="5" placeholder="Share your thoughts with pictures"></textarea>
-      <select id="post-category">
-        <option value="">Select Category</option>
-        <option value="Update">Update</option>
-        <option value="Tech">Tech</option>
-        <option value="Music">Music</option>
-      </select>
-      <input type="file" id="post-image" accept="image/*" />
-      <img id="preview-image" alt="Image preview" />
-      <button onclick="addPost()">Post</button>
+  <section class="posts" id="posts-section">
+    <div id="admin-only" style="display:none;">
+      <h2>New Post</h2>
+      <div class="new-post">
+        <input type="text" id="post-title" placeholder="Type a title" />
+        <textarea id="post-content" rows="5" placeholder="Share your thoughts with pictures"></textarea>
+        <select id="post-category">
+          <option value="">Select Category</option>
+          <option value="Update">Update</option>
+          <option value="Tech">Tech</option>
+          <option value="Music">Music</option>
+        </select>
+        <input type="file" id="post-image" accept="image/*" />
+        <img id="preview-image" alt="Image preview" />
+        <button onclick="addPost()">Post</button>
+      </div>
     </div>
     <div class="post-list" id="posts"></div>
   </section>
@@ -211,13 +213,11 @@
         canvas.height = img.height;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0);
-
         ctx.font = `${Math.floor(canvas.width / 20)}px Arial`;
         ctx.fillStyle = "rgba(62, 39, 35, 0.3)";
         ctx.textAlign = "right";
         ctx.textBaseline = "bottom";
         ctx.fillText(watermarkText, canvas.width - 10, canvas.height - 10);
-
         callback(canvas.toDataURL("image/png"));
       };
       img.src = dataUrl;
@@ -283,32 +283,49 @@
     }
 
     function checkAdminLogin() {
-      if (sessionStorage.getItem("isAdmin") === "true") {
-        showPostSection();
-        return;
-      }
       const pwd = prompt("Enter admin password:");
       if (pwd === "admin123") {
         sessionStorage.setItem("isAdmin", "true");
-        showPostSection();
+        showAdminControls();
       } else {
         alert("Wrong password! You cannot access post section.");
       }
     }
 
-    function showPostSection() {
-      document.getElementById('posts-section').style.display = "block";
+    function showAdminControls() {
+      document.getElementById("admin-only").style.display = "block";
       logoutBtn.style.display = "block";
-      loadPosts();
     }
 
     function logout() {
       sessionStorage.removeItem("isAdmin");
-      document.getElementById('posts-section').style.display = "none";
+      document.getElementById("admin-only").style.display = "none";
       logoutBtn.style.display = "none";
     }
 
-    window.onload = checkAdminLogin;
+    function addLoginButton() {
+      const starBtn = document.createElement("div");
+      starBtn.textContent = "☆";
+      starBtn.style.cssText = `
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        font-size: 28px;
+        cursor: pointer;
+        color: #3E2723;
+      `;
+      starBtn.onclick = checkAdminLogin;
+      document.body.appendChild(starBtn);
+    }
+
+    window.onload = () => {
+      loadPosts();
+      if (sessionStorage.getItem("isAdmin") === "true") {
+        showAdminControls();
+      } else {
+        addLoginButton();
+      }
+    };
   </script>
 </body>
 </html>
