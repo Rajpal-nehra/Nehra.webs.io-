@@ -19,16 +19,6 @@
       font-size: 2rem;
       font-weight: bold;
     }
-    .logo-container {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    .logo-container img {
-      max-width: 200px;
-      height: auto;
-      border-radius: 12px;
-      border: 2px solid #3E2723;
-    }
     .contact-buttons {
       display: flex;
       justify-content: center;
@@ -66,6 +56,7 @@
     .posts h2 {
       text-align: center;
       margin-bottom: 1.5rem;
+      color: #3E2723;
     }
     .new-post {
       display: flex;
@@ -84,10 +75,12 @@
       font-size: 1rem;
       background: #FFF8E7;
       color: #3E2723;
+      transition: border-color 0.3s;
     }
-    .new-post input:focus,
+    .new-post input[type="text"]:focus,
     .new-post textarea:focus,
-    .new-post select:focus {
+    .new-post select:focus,
+    .new-post input[type="file"]:focus {
       border-color: #5D4037;
       outline: none;
     }
@@ -116,8 +109,7 @@
       border-radius: 8px;
       margin-bottom: 1rem;
       opacity: 0;
-      transform: translateY(10px);
-      animation: fadeSlideIn 0.6s ease forwards;
+      animation: fadeIn 0.5s ease forwards;
       color: #3E2723;
       box-shadow: 0 2px 6px rgba(62, 39, 35, 0.1);
     }
@@ -142,37 +134,38 @@
       font-weight: bold;
       letter-spacing: 0.05em;
     }
-    #logout-btn {
-      display: none;
-      margin: 0 auto;
-      padding: 0.5rem 1rem;
-      background: #8D6E63;
-      border: none;
-      border-radius: 6px;
+    .admin-star {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #3E2723;
       color: white;
+      font-size: 1.5rem;
+      padding: 10px 15px;
+      border-radius: 50%;
       cursor: pointer;
-      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      z-index: 999;
     }
-    @keyframes fadeSlideIn {
+    .admin-star:hover {
+      transform: scale(1.2);
+      background: #5D4037;
+    }
+    @keyframes fadeIn {
       to {
         opacity: 1;
-        transform: translateY(0);
       }
     }
   </style>
 </head>
 <body>
-  <header>Nehra.webs.io</header>
-  <div class="logo-container">
-    <img id="site-logo" src="logo.png" alt="Nehra Webs Logo" />
-  </div>
+  <header style="color: #3E2723;">Nehra.webs.io</header>
 
   <div class="contact-buttons">
     <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
     <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
   </div>
-
-  <button id="logout-btn" onclick="logout()">Logout</button>
 
   <section class="posts" id="posts-section" style="display:none;">
     <h2>New Post</h2>
@@ -192,6 +185,8 @@
     <div class="post-list" id="posts"></div>
   </section>
 
+  <div class="admin-star" onclick="checkAdminLogin()">☆</div>
+
   <footer>
     &copy; 2025 <b>Nehra Webs</b>. Made with ♥ by Rajpal Nehra
   </footer>
@@ -200,27 +195,16 @@
     const postsContainer = document.getElementById('posts');
     const imageInput = document.getElementById('post-image');
     const previewImage = document.getElementById('preview-image');
-    const logoutBtn = document.getElementById('logout-btn');
     let imageDataUrl = "";
 
-    function addWatermarkToImage(dataUrl, watermarkText, callback) {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-
-        ctx.font = `${Math.floor(canvas.width / 20)}px Arial`;
-        ctx.fillStyle = "rgba(62, 39, 35, 0.3)";
-        ctx.textAlign = "right";
-        ctx.textBaseline = "bottom";
-        ctx.fillText(watermarkText, canvas.width - 10, canvas.height - 10);
-
-        callback(canvas.toDataURL("image/png"));
-      };
-      img.src = dataUrl;
+    function checkAdminLogin() {
+      const pwd = prompt("Enter admin password:");
+      if (pwd === "admin123") {
+        document.getElementById('posts-section').style.display = "block";
+        loadPosts();
+      } else {
+        alert("Wrong password! You cannot access post section.");
+      }
     }
 
     imageInput.addEventListener('change', () => {
@@ -228,11 +212,9 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = e => {
-          addWatermarkToImage(e.target.result, "Nehra Webs", (watermarkedUrl) => {
-            imageDataUrl = watermarkedUrl;
-            previewImage.src = imageDataUrl;
-            previewImage.style.display = 'block';
-          });
+          imageDataUrl = e.target.result;
+          previewImage.src = imageDataUrl;
+          previewImage.style.display = 'block';
         };
         reader.readAsDataURL(file);
       } else {
@@ -240,14 +222,6 @@
         previewImage.style.display = 'none';
       }
     });
-
-    function escapeHtml(text) {
-      return text.replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
-    }
 
     function loadPosts() {
       const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
@@ -272,7 +246,6 @@
       const posts = JSON.parse(localStorage.getItem("nehra_posts") || "[]");
       posts.unshift({ title, content, category, image: imageDataUrl });
       localStorage.setItem("nehra_posts", JSON.stringify(posts));
-
       document.getElementById("post-title").value = "";
       document.getElementById("post-content").value = "";
       document.getElementById("post-category").value = "";
@@ -282,33 +255,14 @@
       loadPosts();
     }
 
-    function checkAdminLogin() {
-      if (sessionStorage.getItem("isAdmin") === "true") {
-        showPostSection();
-        return;
-      }
-      const pwd = prompt("Enter admin password:");
-      if (pwd === "admin123") {
-        sessionStorage.setItem("isAdmin", "true");
-        showPostSection();
-      } else {
-        alert("Wrong password! You cannot access post section.");
-      }
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
-
-    function showPostSection() {
-      document.getElementById('posts-section').style.display = "block";
-      logoutBtn.style.display = "block";
-      loadPosts();
-    }
-
-    function logout() {
-      sessionStorage.removeItem("isAdmin");
-      document.getElementById('posts-section').style.display = "none";
-      logoutBtn.style.display = "none";
-    }
-
-    window.onload = checkAdminLogin;
   </script>
 </body>
 </html>
