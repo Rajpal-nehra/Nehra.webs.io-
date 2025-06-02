@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nehra Webs</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f5f5;
-      color: #2d2d2d;
+      background: #FFF8E7; /* light cream */
+      color: #3E2723; /* dark chocolate */
     }
     header {
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: white;
+      background: linear-gradient(to right, #5D4037, #3E2723); /* chocolate gradient */
+      color: #FFF8E7; /* cream text */
       padding: 1rem;
       text-align: center;
       font-size: 2rem;
@@ -27,6 +27,7 @@
       max-width: 200px;
       height: auto;
       border-radius: 12px;
+      border: 2px solid #3E2723; /* chocolate border */
     }
     .contact-buttons {
       display: flex;
@@ -38,31 +39,34 @@
       padding: 0.75rem 1.5rem;
       border-radius: 30px;
       text-decoration: none;
-      color: white;
+      color: #FFF8E7;
       font-weight: bold;
       transition: 0.3s;
+      box-shadow: 0 2px 5px rgba(62, 39, 35, 0.3);
     }
     .contact-buttons a:first-child {
-      background: linear-gradient(to right, #f953c6, #b91d73);
+      background: linear-gradient(to right, #6D4C41, #3E2723); /* chocolate brown */
     }
     .contact-buttons a:last-child {
-      background: #25D366;
+      background: #4E342E; /* darker chocolate */
     }
     .contact-buttons a:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(62, 39, 35, 0.5);
     }
     .posts {
       max-width: 600px;
       margin: 2rem auto;
-      background: white;
+      background: #FFF8E7; /* cream */
       padding: 2rem;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(62, 39, 35, 0.1);
+      border: 2px solid #3E2723;
     }
     .posts h2 {
       text-align: center;
       margin-bottom: 1.5rem;
+      color: #3E2723;
     }
     .new-post {
       display: flex;
@@ -76,51 +80,69 @@
     .new-post input[type="file"] {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid #ccc;
+      border: 1.5px solid #3E2723;
       border-radius: 8px;
       font-size: 1rem;
+      background: #FFF8E7;
+      color: #3E2723;
+      transition: border-color 0.3s;
+    }
+    .new-post input[type="text"]:focus,
+    .new-post textarea:focus,
+    .new-post select:focus,
+    .new-post input[type="file"]:focus {
+      border-color: #5D4037;
+      outline: none;
     }
     .new-post button {
       padding: 0.75rem;
-      background: #6a11cb;
-      color: white;
+      background: linear-gradient(to right, #5D4037, #3E2723);
+      color: #FFF8E7;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
+      box-shadow: 0 4px 8px rgba(62, 39, 35, 0.3);
     }
     .new-post button:hover {
-      background: #2575fc;
+      background: linear-gradient(to right, #3E2723, #5D4037);
+      box-shadow: 0 6px 14px rgba(62, 39, 35, 0.5);
     }
     .post-list {
       margin-top: 2rem;
     }
     .post {
-      background: #f9f9f9;
-      border-left: 4px solid #6a11cb;
+      background: #F5EAD6; /* very light cream */
+      border-left: 6px solid #5D4037; /* chocolate accent */
       padding: 1rem;
       border-radius: 8px;
       margin-bottom: 1rem;
       opacity: 0;
       animation: fadeIn 0.5s ease forwards;
+      color: #3E2723;
+      box-shadow: 0 2px 6px rgba(62, 39, 35, 0.1);
     }
     .post img {
       max-width: 100%;
       margin-top: 10px;
       border-radius: 8px;
+      border: 1px solid #3E2723;
     }
     #preview-image {
       max-width: 100%;
       margin-top: 10px;
       border-radius: 8px;
       display: none;
+      border: 1px solid #3E2723;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background: #1a1a1a;
-      color: white;
+      background: #3E2723;
+      color: #FFF8E7;
+      font-weight: bold;
+      letter-spacing: 0.05em;
     }
     @keyframes fadeIn {
       to {
@@ -163,7 +185,6 @@
   </footer>
 
   <script>
-    // Admin login prompt on page load
     function checkAdminLogin() {
       const pwd = prompt("Enter admin password:");
       if (pwd === "admin123") {
@@ -171,7 +192,6 @@
         loadPosts();
       } else {
         alert("Wrong password! You cannot access post section.");
-        // You can redirect or hide posts section permanently here if needed
       }
     }
 
@@ -228,7 +248,6 @@
       loadPosts();
     }
 
-    // Simple HTML escape to prevent XSS
     function escapeHtml(text) {
       return text
         .replace(/&/g, "&amp;")
@@ -243,4 +262,4 @@
     }
   </script>
 </body>
-</html>
+</
