@@ -151,7 +151,7 @@
 
     <div class="contact-buttons">
       <a href="https://www.instagram.com/rajpalnehra001" target="_blank">Instagram</a>
-      <a href="https://wa.me/917851867154?text=I%20need%20a%20website" target="_blank">WhatsApp</a>
+      <a href="https://wa.me/917851867154 text=I%20need%20a%20website" target="_blank">WhatsApp</a>
     </div>
   </section>
 
