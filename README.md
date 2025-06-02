@@ -12,27 +12,32 @@
     }
 
     header {
-      background-color: #f5f5f5;
+      background-color: #f9f9f9;
       padding: 20px;
     }
 
     .logo {
-      height: 60px;
+      height: 120px;
       width: auto;
     }
 
     .contact-buttons {
-      margin: 20px 0;
+      margin: 30px 0;
     }
 
     .contact-buttons a {
       text-decoration: none;
       color: white;
-      background-color: #0077b6;
-      padding: 10px 20px;
+      background-color: #25D366; /* WhatsApp green */
+      padding: 12px 24px;
       margin: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
       display: inline-block;
+      font-weight: bold;
+    }
+
+    .contact-buttons a:first-child {
+      background-color: #E1306C; /* Instagram pink */
     }
 
     footer {
@@ -46,7 +51,8 @@
 <body>
 
 <header>
-  <img src="logo.png" alt="Nehra Webs Logo" class="logo">
+  <!-- Update the file name if different -->
+  <img src="nehra-logo.jpg" alt="Nehra Webs Logo" class="logo">
 </header>
 
 <section id="contact">
