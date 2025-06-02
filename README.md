@@ -15,6 +15,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      text-align: center;
     }
 
     #site-logo {
@@ -101,7 +102,7 @@
     function submitLogin() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-      // Replace with real login logic
+      // Replace with real logic
       alert(`Username: ${username}\nPassword: ${password}`);
     }
   </script>
