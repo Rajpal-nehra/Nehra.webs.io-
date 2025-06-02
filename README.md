@@ -284,7 +284,7 @@
 
     function checkAdminLogin() {
       const pwd = prompt("Enter admin password:");
-      if (pwd === "admin123") {
+      if (pwd === "Rajpal123admin") {
         sessionStorage.setItem("isAdmin", "true");
         showAdminControls();
       } else {
