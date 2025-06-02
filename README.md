@@ -47,7 +47,7 @@
       opacity: 0.15;
     }
 
-    .logo {
+    .logo { 
       width: 120px;
       margin-bottom: 20px;
       border-radius: 12px;
